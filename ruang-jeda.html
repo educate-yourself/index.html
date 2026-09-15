@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruang Jeda — Belajar tentang Kesehatan Mental</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F1F4EC;
+    --bg-alt: #E7EEE1;
+    --surface: #FFFFFF;
+    --ink: #17261F;
+    --ink-soft: #445048;
+    --teal: #1F4A43;
+    --teal-deep: #12302B;
+    --gold: #C68A2E;
+    --gold-soft: #EFDBAF;
+    --rose: #B96B76;
+    --rose-soft: #F3DEE0;
+    --line: rgba(23,38,31,0.14);
+    --shadow: 0 20px 40px -28px rgba(18,48,43,0.35);
+    --maxw: 760px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Work Sans", sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,h2,h3{
+    font-family: "Fraunces", serif;
+    font-weight: 500;
+    line-height: 1.15;
+    margin: 0;
+    color: var(--teal-deep);
+  }
+
+  p{ margin: 0 0 1em; color: var(--ink-soft); }
+  a{ color: inherit; }
+
+  :focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  img,svg{ display:block; max-width:100%; }
+
+  .wrap{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .prose{
+    max-width: var(--maxw);
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position: sticky; top:0; z-index: 40;
+    background: rgba(241,244,236,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav__inner{
+    max-width: 1080px; margin: 0 auto; padding: 18px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap: 24px;
+  }
+  .nav__brand{
+    font-family:"Fraunces", serif; font-style: italic; font-weight: 500;
+    font-size: 1.25rem; color: var(--teal-deep); white-space:nowrap;
+  }
+  .nav__links{
+    list-style:none; display:flex; gap: 26px; margin:0; padding:0;
+    font-size: 0.92rem; color: var(--ink-soft);
+    overflow-x:auto; scrollbar-width:none;
+  }
+  .nav__links::-webkit-scrollbar{ display:none; }
+  .nav__links a{ text-decoration:none; white-space:nowrap; }
+  .nav__links a:hover{ color: var(--teal); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    padding: 88px 32px 96px;
+    overflow: hidden;
+  }
+  .hero__blob{
+    position:absolute; top:-140px; right:-160px; width:560px; height:560px;
+    opacity: 0.55; z-index:0;
+  }
+  .hero__inner{
+    position:relative; z-index:1;
+    max-width: 1080px; margin:0 auto;
+    display:grid; grid-template-columns: 1.4fr 1fr; gap: 56px;
+    align-items:end;
+  }
+  .hero__eyebrow{
+    font-size: 0.95rem; color: var(--teal); margin-bottom: 18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .hero__eyebrow::before{
+    content:""; width: 22px; height: 1px; background: var(--gold);
+    display:inline-block;
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    letter-spacing: -0.01em;
+    max-width: 12ch;
+    opacity: 0; transform: translateY(14px);
+    animation: rise 0.9s ease forwards 0.15s;
+  }
+  .hero__side{ opacity:0; transform: translateY(14px); animation: rise 0.9s ease forwards 0.4s; }
+  .hero__side p{ font-size: 1.05rem; }
+  .hero__scroll{
+    margin-top: 14px; font-size: 0.85rem; color: var(--ink-soft);
+  }
+
+  @keyframes rise{ to{ opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce){
+    .hero h1, .hero__side{ animation: none; opacity:1; transform:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  @media (max-width: 760px){
+    .hero__inner{ grid-template-columns: 1fr; gap: 24px; align-items:start; }
+  }
+
+  /* ---------- SECTION shells ---------- */
+  section{ padding: 84px 0; }
+  .section--alt{ background: var(--bg-alt); }
+  .kicker{
+    font-size: 0.85rem; color: var(--gold); margin-bottom: 10px;
+  }
+  .section h2{
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    margin-bottom: 22px;
+    max-width: 16ch;
+  }
+
+  /* ---------- SIGNS grid ---------- */
+  .signs{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+    margin-top: 40px;
+  }
+  .signs__card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 26px 24px;
+  }
+  .signs__card h3{ font-size: 1.05rem; margin-bottom: 10px; color:var(--teal); }
+  .signs__card ul{ margin:0; padding-left: 18px; color: var(--ink-soft); font-size: 0.95rem; }
+  .signs__card li{ margin-bottom: 6px; }
+  @media (max-width: 860px){ .signs{ grid-template-columns: 1fr; } }
+
+  /* ---------- MYTH / FACT flip cards ---------- */
+  .myths{
+    display:grid; grid-template-columns: repeat(2, 1fr); gap: 22px;
+    margin-top: 40px;
+  }
+  .myth-card{
+    perspective: 1400px;
+    height: 190px;
+    cursor:pointer;
+  }
+  .myth-card__inner{
+    position:relative; width:100%; height:100%;
+    transition: transform 0.6s cubic-bezier(.4,.1,.2,1);
+    transform-style: preserve-3d;
+  }
+  .myth-card.is-flipped .myth-card__inner{ transform: rotateY(180deg); }
+  .myth-card__face{
+    position:absolute; inset:0;
+    border-radius: 4px;
+    padding: 24px;
+    backface-visibility: hidden;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .myth-card__face--front{
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  .myth-card__face--back{
+    background: var(--teal);
+    color: #EFF4EE;
+    transform: rotateY(180deg);
+  }
+  .myth-card__label{ font-size: 0.75rem; letter-spacing: 0.02em; margin-bottom: 8px; }
+  .myth-card__face--front .myth-card__label{ color: var(--rose); }
+  .myth-card__face--back .myth-card__label{ color: var(--gold-soft); }
+  .myth-card__text{ font-size: 1rem; margin:0; color: inherit; }
+  .myth-card__face--front .myth-card__text{ color: var(--ink); font-family:"Fraunces", serif; font-size:1.1rem; }
+  .myth-card__hint{ margin-top:14px; font-size:0.78rem; color: var(--ink-soft); }
+  .myth-card__face--back .myth-card__hint{ color: #C9DAD3; }
+
+  @media (max-width: 760px){ .myths{ grid-template-columns:1fr; } .myth-card{ height:auto; min-height:180px; } }
+
+  /* ---------- BREATHE (bold dark section) ---------- */
+  .breathe{
+    background: var(--teal-deep);
+    color: #EAF1EC;
+    padding: 100px 0;
+    text-align:center;
+  }
+  .breathe h2{ color:#F5F1E4; }
+  .breathe .kicker{ color: var(--gold-soft); }
+  .breathe p.lede{ color:#C9DAD3; max-width: 480px; margin: 0 auto 44px; }
+
+  .breathe__stage{
+    display:flex; flex-direction:column; align-items:center; gap: 34px;
+  }
+  .breathe__circle-wrap{
+    width: 240px; height:240px; display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .breathe__ring{
+    position:absolute; inset:0; border-radius:50%;
+    border: 1px solid rgba(234,241,236,0.18);
+  }
+  .breathe__circle{
+    width: 120px; height:120px; border-radius:50%;
+    background: radial-gradient(circle at 32% 30%, #E9C888, var(--gold) 60%, #A66F20 100%);
+    box-shadow: 0 0 60px rgba(198,138,46,0.35);
+    transform: scale(1);
+    transition: transform 4s ease-in-out;
+  }
+  .breathe__label{
+    font-family:"Fraunces", serif; font-style:italic; font-size:1.3rem; min-height: 1.6em;
+  }
+  .breathe__btn{
+    background: transparent;
+    border: 1px solid rgba(234,241,236,0.5);
+    color: #EAF1EC;
+    font-family:"Work Sans", sans-serif;
+    font-size: 0.92rem;
+    padding: 12px 26px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+  .breathe__btn:hover{ background: rgba(234,241,236,0.08); border-color: var(--gold); }
+
+  /* ---------- SELF CARE ---------- */
+  .care{
+    display:grid; grid-template-columns: repeat(2, 1fr); gap: 20px 32px;
+    margin-top: 40px;
+  }
+  .care__item{ display:flex; gap:16px; }
+  .care__num{
+    font-family:"Fraunces", serif; font-style:italic; color: var(--rose);
+    font-size:1.1rem; min-width: 28px;
+  }
+  .care__item h3{ font-size: 1rem; margin-bottom:4px; color: var(--teal); font-family:"Work Sans",sans-serif; font-weight:600; }
+  .care__item p{ font-size: 0.95rem; margin:0; }
+  @media (max-width: 760px){ .care{ grid-template-columns:1fr; } }
+
+  /* ---------- MOOD CHECK-IN ---------- */
+  .mood{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 36px 36px 32px;
+    margin-top: 44px;
+  }
+  .mood__q{ font-family:"Fraunces", serif; font-size:1.2rem; margin-bottom:18px; color:var(--teal-deep); }
+  .mood__opts{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom: 18px; }
+  .mood__opt{
+    border: 1px solid var(--line);
+    background: var(--bg);
+    color: var(--ink);
+    font-family:"Work Sans", sans-serif;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    cursor:pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .mood__opt:hover{ border-color: var(--teal); }
+  .mood__opt.is-active{ background: var(--teal); color:#fff; border-color: var(--teal); }
+  .mood__reply{
+    font-size: 0.95rem; color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+    padding-top: 16px; min-height: 1.6em;
+  }
+  .mood__reply a{ color: var(--teal); text-decoration:underline; }
+
+  /* ---------- HELP / PROFESSIONAL ---------- */
+  .help-grid{
+    display:grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    margin-top: 40px;
+    align-items:start;
+  }
+  .help-grid ul{ padding-left: 18px; color: var(--ink-soft); }
+  .help-grid li{ margin-bottom: 8px; }
+  @media (max-width: 760px){ .help-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- CRISIS BOX ---------- */
+  .crisis{
+    background: var(--rose-soft);
+    border: 1px solid rgba(185,107,118,0.35);
+    border-radius: 6px;
+    padding: 36px 40px;
+    margin-top: 20px;
+  }
+  .crisis h3{
+    font-size: 1.15rem; color: var(--teal-deep); margin-bottom: 10px;
+  }
+  .crisis p{ color: #4A3437; }
+  .crisis__line{
+    display:flex; align-items:baseline; gap: 14px; flex-wrap:wrap;
+    margin: 18px 0 6px; padding: 16px 20px;
+    background: var(--surface); border-radius:4px;
+  }
+  .crisis__num{
+    font-family:"Fraunces", serif; font-size: 1.7rem; color: var(--teal-deep);
+    text-decoration:none;
+  }
+  .crisis__meta{ font-size: 0.88rem; color: var(--ink-soft); }
+  .crisis__note{ font-size: 0.85rem; color: #6B4E52; margin-top: 14px; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background: var(--teal-deep); color:#C9DAD3;
+    padding: 52px 0 40px; font-size: 0.88rem;
+  }
+  footer .wrap{ display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+  footer strong{ color:#EAF1EC; font-family:"Fraunces", serif; font-style:italic; font-weight:500; font-size:1.05rem; }
+  footer p{ color:#9FB6AC; max-width: 420px; }
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <span class="nav__brand">Ruang Jeda</span>
+    <ul class="nav__links">
+      <li><a href="#tentang">Tentang</a></li>
+      <li><a href="#tanda">Tanda-tanda</a></li>
+      <li><a href="#mitos">Mitos & Fakta</a></li>
+      <li><a href="#napas">Latihan Napas</a></li>
+      <li><a href="#rawat-diri">Rawat Diri</a></li>
+      <li><a href="#bantuan">Cari Bantuan</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <svg class="hero__blob" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#DCE7D5" d="M431,64Q511,128,486,229Q461,330,393,393Q325,456,236,433Q147,410,104,323Q61,236,113,148Q165,60,260,55Q355,50,431,64Z"/>
+  </svg>
+  <div class="hero__inner">
+    <div>
+      <div class="hero__eyebrow">Sebuah ruang belajar, bukan ruang diagnosis</div>
+      <h1>Kesehatan mental itu nyata, dan kamu tidak sedang melaluinya sendirian.</h1>
+      <p class="hero__scroll">Gulir ke bawah untuk mulai — dari mengenali tanda-tanda, sampai tahu ke mana harus melangkah.</p>
+    </div>
+    <div class="hero__side">
+      <p>Ruang Jeda dibuat untuk siapa pun yang ingin memahami kondisi emosinya lebih baik — entah untuk diri sendiri, atau untuk orang yang kamu sayangi. Tidak ada istilah rumit di sini, hanya penjelasan yang jujur dan mudah dicerna.</p>
+    </div>
+  </div>
+</header>
+
+<section id="tentang">
+  <div class="wrap prose">
+    <div class="kicker">Mulai dari sini</div>
+    <h2>Apa sebenarnya yang dimaksud "kesehatan mental"?</h2>
+    <p>Kesehatan mental adalah kondisi kesejahteraan yang memengaruhi cara kita berpikir, merasa, dan menjalani hari — termasuk bagaimana kita menghadapi tekanan, menjalin hubungan dengan orang lain, dan mengambil keputusan. Sama seperti tubuh, pikiran juga bisa lelah, terluka, atau butuh waktu untuk pulih.</p>
+    <p>Memiliki kesehatan mental yang baik bukan berarti selalu bahagia atau tidak pernah sedih. Ini soal punya ruang yang cukup untuk merasakan berbagai emosi tanpa kewalahan olehnya, dan tahu ke mana mencari pijakan saat semuanya terasa berat.</p>
+    <p>Di Indonesia, isu ini sering dianggap tabu untuk dibicarakan terbuka. Padahal, semakin banyak orang memahami dan membicarakannya, semakin mudah pula bagi yang sedang berjuang untuk merasa dilihat — dan berani mencari bantuan.</p>
+  </div>
+</section>
+
+<section id="tanda" class="section--alt">
+  <div class="wrap">
+    <div class="kicker">Mengenali diri sendiri</div>
+    <h2>Tanda-tanda yang mungkin perlu diperhatikan</h2>
+    <p class="prose">Ini bukan daftar untuk mendiagnosis diri sendiri atau orang lain — hanya panduan awal untuk lebih peka terhadap perubahan yang terjadi pada diri sendiri atau orang di sekitarmu.</p>
+    <div class="signs">
+      <div class="signs__card">
+        <h3>Secara emosi</h3>
+        <ul>
+          <li>Merasa cemas atau khawatir berlebihan hampir setiap hari</li>
+          <li>Sulit merasakan senang pada hal yang biasanya disukai</li>
+          <li>Mudah tersinggung atau meledak-ledak</li>
+          <li>Merasa hampa atau putus asa dalam waktu lama</li>
+        </ul>
+      </div>
+      <div class="signs__card">
+        <h3>Secara fisik</h3>
+        <ul>
+          <li>Pola tidur berubah drastis — sulit tidur atau tidur berlebihan</li>
+          <li>Nafsu makan berubah tanpa sebab yang jelas</li>
+          <li>Sering merasa lelah meski cukup istirahat</li>
+          <li>Sakit kepala atau nyeri fisik tanpa penyebab medis</li>
+        </ul>
+      </div>
+      <div class="signs__card">
+        <h3>Secara perilaku</h3>
+        <ul>
+          <li>Menarik diri dari teman dan keluarga</li>
+          <li>Sulit fokus atau menyelesaikan pekerjaan sederhana</li>
+          <li>Mengandalkan alkohol atau zat lain untuk merasa lebih baik</li>
+          <li>Kehilangan minat pada rutinitas sehari-hari</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="mitos">
+  <div class="wrap">
+    <div class="kicker">Meluruskan yang sering salah kaprah</div>
+    <h2>Mitos vs fakta</h2>
+    <p class="prose">Ketuk kartu untuk melihat faktanya.</p>
+    <div class="myths" id="mythGrid">
+      <div class="myth-card" tabindex="0" role="button" aria-pressed="false">
+        <div class="myth-card__inner">
+          <div class="myth-card__face myth-card__face--front">
+            <div class="myth-card__label">Mitos</div>
+            <p class="myth-card__text">"Masalah kesehatan mental itu cuma soal kurang iman atau kurang bersyukur."</p>
+            <div class="myth-card__hint">Ketuk untuk lihat faktanya →</div>
+          </div>
+          <div class="myth-card__face myth-card__face--back">
+            <div class="myth-card__label">Fakta</div>
+            <p class="myth-card__text">Kondisi ini dipengaruhi banyak faktor — biologis, psikologis, dan lingkungan. Ini bukan cermin kekuatan keyakinan seseorang, dan menyamakan keduanya justru bisa membuat orang enggan mencari bantuan.</p>
+          </div>
+        </div>
+      </div>
+      <div class="myth-card" tabindex="0" role="button" aria-pressed="false">
+        <div class="myth-card__inner">
+          <div class="myth-card__face myth-card__face--front">
+            <div class="myth-card__label">Mitos</div>
+            <p class="myth-card__text">"Yang pergi ke psikolog itu cuma orang dengan gangguan jiwa berat."</p>
+            <div class="myth-card__hint">Ketuk untuk lihat faktanya →</div>
+          </div>
+          <div class="myth-card__face myth-card__face--back">
+            <div class="myth-card__label">Fakta</div>
+            <p class="myth-card__text">Psikolog membantu siapa saja — dari yang sedang stres kerja, menghadapi masa transisi hidup, sampai yang ingin lebih mengenal dirinya. Datang ke psikolog sama wajarnya dengan periksa ke dokter gigi.</p>
+          </div>
+        </div>
+      </div>
+      <div class="myth-card" tabindex="0" role="button" aria-pressed="false">
+        <div class="myth-card__inner">
+          <div class="myth-card__face myth-card__face--front">
+            <div class="myth-card__label">Mitos</div>
+            <p class="myth-card__text">"Kalau dibiarkan dan dialihkan dengan kesibukan, nanti hilang sendiri."</p>
+            <div class="myth-card__hint">Ketuk untuk lihat faktanya →</div>
+          </div>
+          <div class="myth-card__face myth-card__face--back">
+            <div class="myth-card__label">Fakta</div>
+            <p class="myth-card__text">Beberapa perasaan sulit memang bisa mereda sendiri, tapi banyak kondisi justru memburuk tanpa penanganan yang tepat. Mengenali dan merawatnya lebih awal jauh lebih ringan daripada menundanya.</p>
+          </div>
+        </div>
+      </div>
+      <div class="myth-card" tabindex="0" role="button" aria-pressed="false">
+        <div class="myth-card__inner">
+          <div class="myth-card__face myth-card__face--front">
+            <div class="myth-card__label">Mitos</div>
+            <p class="myth-card__text">"Anak muda sekarang gampang stres, dulu juga susah tapi baik-baik saja."</p>
+            <div class="myth-card__hint">Ketuk untuk lihat faktanya →</div>
+          </div>
+          <div class="myth-card__face myth-card__face--back">
+            <div class="myth-card__label">Fakta</div>
+            <p class="myth-card__text">Tekanan hidup berubah bentuk dari generasi ke generasi. Respons stres itu nyata secara biologis, dan membandingkan beban satu generasi dengan generasi lain tidak membuat rasa sakit siapa pun jadi kurang valid.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="napas" class="breathe">
+  <div class="wrap">
+    <div class="kicker">Coba sekarang, satu menit saja</div>
+    <h2>Latihan napas sederhana</h2>
+    <p class="lede">Teknik ini membantu menenangkan sistem saraf saat pikiran terasa terlalu ramai. Ikuti gerakan lingkaran, dan biarkan napasmu mengikuti iramanya.</p>
+    <div class="breathe__stage">
+      <div class="breathe__circle-wrap">
+        <div class="breathe__ring"></div>
+        <div class="breathe__circle" id="breatheCircle"></div>
+      </div>
+      <div class="breathe__label" id="breatheLabel">Siap saat kamu siap</div>
+      <button class="breathe__btn" id="breatheBtn">Mulai latihan</button>
+    </div>
+  </div>
+</section>
+
+<section id="rawat-diri" class="section--alt">
+  <div class="wrap">
+    <div class="kicker">Kebiasaan kecil, dampak besar</div>
+    <h2>Cara sederhana merawat kesehatan mental sehari-hari</h2>
+    <div class="care">
+      <div class="care__item">
+        <span class="care__num">i</span>
+        <div>
+          <h3>Jaga jam tidur yang konsisten</h3>
+          <p>Tidur memengaruhi suasana hati lebih besar dari yang kita sadari. Coba tidur dan bangun di jam yang relatif sama setiap hari.</p>
+        </div>
+      </div>
+      <div class="care__item">
+        <span class="care__num">ii</span>
+        <div>
+          <h3>Gerakkan tubuh, walau sebentar</h3>
+          <p>Jalan kaki 15 menit atau peregangan ringan bisa membantu meredakan ketegangan pikiran, bukan hanya otot.</p>
+        </div>
+      </div>
+      <div class="care__item">
+        <span class="care__num">iii</span>
+        <div>
+          <h3>Batasi waktu bermain gawai tanpa arah</h3>
+          <p>Scroll tanpa henti sering memperbesar rasa cemas. Beri diri jeda dari layar, terutama sebelum tidur.</p>
+        </div>
+      </div>
+      <div class="care__item">
+        <span class="care__num">iv</span>
+        <div>
+          <h3>Tetap terhubung dengan orang lain</h3>
+          <p>Ngobrol singkat dengan teman atau keluarga bisa jadi pengingat bahwa kamu tidak perlu menanggung semuanya sendiri.</p>
+        </div>
+      </div>
+      <div class="care__item">
+        <span class="care__num">v</span>
+        <div>
+          <h3>Tuliskan apa yang kamu rasakan</h3>
+          <p>Menulis jurnal singkat membantu memberi bentuk pada perasaan yang sebelumnya hanya berputar di kepala.</p>
+        </div>
+      </div>
+      <div class="care__item">
+        <span class="care__num">vi</span>
+        <div>
+          <h3>Beri dirimu izin untuk beristirahat</h3>
+          <p>Produktif terus-menerus bukan tanda kekuatan. Istirahat adalah bagian dari cara kerja yang sehat, bukan kemalasan.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mood">
+      <div class="mood__q">Sebelum lanjut, bagaimana perasaanmu hari ini?</div>
+      <div class="mood__opts" id="moodOpts">
+        <button class="mood__opt" data-mood="tenang">Cukup tenang</button>
+        <button class="mood__opt" data-mood="biasa">Biasa saja</button>
+        <button class="mood__opt" data-mood="cemas">Sedang cemas</button>
+        <button class="mood__opt" data-mood="berat">Terasa berat</button>
+      </div>
+      <div class="mood__reply" id="moodReply">Pilih salah satu — tidak ada jawaban yang salah.</div>
+    </div>
+  </div>
+</section>
+
+<section id="bantuan">
+  <div class="wrap">
+    <div class="kicker">Langkah berikutnya</div>
+    <h2>Kapan saatnya mencari bantuan profesional?</h2>
+    <div class="help-grid">
+      <div>
+        <p>Tidak perlu menunggu sampai kondisi "cukup parah" untuk berbicara dengan profesional. Beberapa tanda ini bisa jadi pengingat bahwa dukungan tambahan akan membantu:</p>
+        <ul>
+          <li>Perasaan berat itu berlangsung lebih dari dua minggu</li>
+          <li>Mulai mengganggu pekerjaan, sekolah, atau hubungan dengan orang lain</li>
+          <li>Kamu mengandalkan cara-cara yang justru merugikan diri untuk merasa lebih baik</li>
+          <li>Orang terdekat mulai mengungkapkan kekhawatiran tentang perubahan pada dirimu</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong style="color:var(--teal)">Psikolog</strong> membantu melalui konseling dan terapi bicara untuk memahami pola pikir dan emosi.</p>
+        <p><strong style="color:var(--teal)">Psikiater</strong> adalah dokter yang juga dapat mendiagnosis dan meresepkan obat bila diperlukan.</p>
+        <p>Keduanya bisa ditemui di rumah sakit, puskesmas dengan layanan jiwa, klinik psikologi, atau melalui layanan konsultasi daring.</p>
+      </div>
+    </div>
+
+    <div class="crisis">
+      <h3>Kalau kamu sedang berada di titik yang sangat sulit sekarang</h3>
+      <p>Kamu tidak perlu melalui malam ini sendirian. Layanan berikut disediakan pemerintah Indonesia, gratis, dan tersedia 24 jam.</p>
+      <div class="crisis__line">
+        <a class="crisis__num" href="tel:119">119 ext. 8</a>
+        <span class="crisis__meta">Healing119 / SEJIWA — layanan dukungan psikologis Kementerian Kesehatan RI, gratis, 24 jam. Bisa juga lewat healing119.id atau WhatsApp di situs tersebut.</span>
+      </div>
+      <p class="crisis__note">Kalau ada bahaya yang mengancam nyawa saat ini juga, segera hubungi 119 untuk ambulans atau pergi ke IGD rumah sakit terdekat. Kamu juga selalu boleh menghubungi orang yang kamu percaya untuk menemanimu mencari bantuan.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <strong>Ruang Jeda</strong>
+      <p>Dibuat sebagai ruang belajar bersama. Konten di sini bersifat edukatif dan tidak menggantikan diagnosis, konsultasi, atau perawatan dari tenaga kesehatan profesional.</p>
+    </div>
+    <div>
+      <p>Butuh bantuan sekarang?<br>Hubungi 119 ext. 8 — gratis, 24 jam.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Myth / fact flip cards
+  document.querySelectorAll('.myth-card').forEach(function(card){
+    function toggle(){
+      var flipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+    }
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+    });
+  });
+
+  // Breathing exercise
+  var circle = document.getElementById('breatheCircle');
+  var label = document.getElementById('breatheLabel');
+  var btn = document.getElementById('breatheBtn');
+  var running = false;
+  var timer = null;
+
+  var phases = [
+    { text: 'Tarik napas perlahan…', duration: 4000, scale: 1.7 },
+    { text: 'Tahan sebentar…',        duration: 3000, scale: 1.7 },
+    { text: 'Hembuskan perlahan…',    duration: 6000, scale: 1 },
+    { text: 'Tahan sebentar…',        duration: 2000, scale: 1 }
+  ];
+  var i = 0;
+
+  function step(){
+    if(!running) return;
+    var p = phases[i % phases.length];
+    circle.style.transitionDuration = (p.duration/1000) + 's';
+    circle.style.transform = 'scale(' + p.scale + ')';
+    label.textContent = p.text;
+    i++;
+    timer = setTimeout(step, p.duration);
+  }
+
+  btn.addEventListener('click', function(){
+    running = !running;
+    if(running){
+      btn.textContent = 'Hentikan';
+      i = 0;
+      step();
+    } else {
+      btn.textContent = 'Mulai latihan';
+      clearTimeout(timer);
+      circle.style.transitionDuration = '1.2s';
+      circle.style.transform = 'scale(1)';
+      label.textContent = 'Siap saat kamu siap';
+    }
+  });
+
+  // Mood check-in
+  var moodReplies = {
+    tenang: 'Senang dengar itu. Ini waktu yang baik untuk membangun kebiasaan yang menjaga rasa tenang ini — lihat bagian <a href="#rawat-diri">rawat diri</a> di atas.',
+    biasa: 'Wajar kok punya hari yang biasa-biasa saja. Kalau mau, coba <a href="#napas">latihan napas</a> singkat untuk menyegarkan pikiran sejenak.',
+    cemas: 'Rasa cemas itu valid. Coba luangkan satu menit untuk <a href="#napas">latihan napas</a> di atas, lalu lihat juga <a href="#tanda">tanda-tanda</a> untuk mengenalinya lebih jauh.',
+    berat: 'Terima kasih sudah jujur pada diri sendiri. Kalau hari ini terasa sangat berat, kamu tidak perlu menghadapinya sendirian — lihat <a href="#bantuan">sumber bantuan</a> di bagian bawah halaman ini.'
+  };
+  var moodBtns = document.querySelectorAll('.mood__opt');
+  var moodReplyEl = document.getElementById('moodReply');
+  moodBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      moodBtns.forEach(function(x){ x.classList.remove('is-active'); });
+      b.classList.add('is-active');
+      moodReplyEl.innerHTML = moodReplies[b.dataset.mood];
+    });
+  });
+</script>
+
+</body>
+</html>
